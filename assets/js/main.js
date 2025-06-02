@@ -26,15 +26,16 @@ const closeOtpModal = document.getElementById('closeOtpModal');
 const otpForm = document.getElementById('otpForm');
 const unitsContainer = document.getElementById('units-container');
 const unitDetails = document.getElementById('unit-details');
+const mailInput = document.getElementById('emailInput');
 
 // Check if user is logged in
 function checkLoginStatus() {
     const member = sessionStorage.getItem('hotDealMember');
     if (member) {
-        loginBtn.textContent = 'Logout';
+        //loginBtn.textContent = 'Logout';
         loginBtn.onclick = handleLogout;
     } else {
-        loginBtn.textContent = 'Login';
+        //loginBtn.textContent = 'Login';
         loginBtn.onclick = () => loginModal.classList.remove('hidden');
     }
 }
@@ -45,78 +46,105 @@ function handleLogout() {
     checkLoginStatus();
 }
 
-// Show modal
-function showModal(modal) {
-    modal.classList.remove('hidden');
-    modal.classList.add('flex');
+function submitMail() {
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "multipart/form-data");
+
+    const formdata = new FormData();
+    formdata.append("email", mailInput.value);
+
+    const requestOptions = {
+        method: "POST",
+        headers: myHeaders,
+        body: formdata,
+        redirect: "follow"
+    };
+
+    fetch("/api/proxy.php?endpoint=/Member/RequestOTP", requestOptions)
+    .then((response) => {
+        if (response.status === 200 && response.ok) {
+            console.log(response);
+        } else {
+            console.error(response);
+        }
+    })
+    .catch((error) => {
+        console.error(error);
+    });
 }
 
-// Hide modal
-function hideModal(modal) {
-    modal.classList.add('hidden');
-    modal.classList.remove('flex');
-}
+// Show modal
+// function showModal(modal) {
+//     modal.classList.remove('hidden');
+//     modal.classList.add('flex');
+// }
+
+// // Hide modal
+// function hideModal(modal) {
+//     modal.classList.add('hidden');
+//     modal.classList.remove('flex');
+// }
 
 // Event Listeners
-loginBtn.addEventListener('click', () => showModal(loginModal));
-closeLoginModal.addEventListener('click', () => hideModal(loginModal));
-closeOtpModal.addEventListener('click', () => hideModal(otpModal));
+// loginBtn.addEventListener('click', () => showModal(loginModal));
+// closeLoginModal.addEventListener('click', () => hideModal(loginModal));
+// closeOtpModal.addEventListener('click', () => hideModal(otpModal));
 
 // Handle login form submission
-loginForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const email = document.getElementById('email').value;
+// loginForm.addEventListener('submit', async (e) => {
+//     e.preventDefault();
+//     const email = document.getElementById('email').value;
     
-    try {
-        const response = await fetch('/api/proxy.php?endpoint=Auth/RequestOTP', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ email }),
-        });
+//     try {
+//         const response = await fetch('/api/proxy.php?endpoint=Auth/RequestOTP', {
+//             method: 'POST',
+//             headers: {
+//                 'Content-Type': 'application/json',
+//             },
+//             body: JSON.stringify({ email }),
+//         });
         
-        const data = await response.json();
-        if (data.status === 200) {
-            hideModal(loginModal);
-            showModal(otpModal);
-        } else {
-            alert('Error: ' + data.message);
-        }
-    } catch (error) {
-        console.error('Error:', error);
-        alert('An error occurred. Please try again.');
-    }
-});
+//         const data = await response.json();
+//         if (data.status === 200) {
+//             hideModal(loginModal);
+//             showModal(otpModal);
+//         } else {
+//             alert('Error: ' + data.message);
+//         }
+//     } catch (error) {
+//         console.error('Error:', error);
+//         alert('An error occurred. Please try again.');
+//     }
+// });
 
-// Handle OTP form submission
-otpForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const email = document.getElementById('email').value;
-    const otp = document.getElementById('otp').value;
+// // Handle OTP form submission
+// otpForm.addEventListener('submit', async (e) => {
+//     e.preventDefault();
+//     const email = document.getElementById('email').value;
+//     const otp = document.getElementById('otp').value;
     
-    try {
-        const response = await fetch('/api/proxy.php?endpoint=Auth/ValidateOTP', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ email, otp }),
-        });
+//     try {
+//         const response = await fetch('/api/proxy.php?endpoint=Auth/ValidateOTP', {
+//             method: 'POST',
+//             headers: {
+//                 'Content-Type': 'application/json',
+//             },
+//             body: JSON.stringify({ email, otp }),
+//         });
         
-        const data = await response.json();
-        if (data.status === 200) {
-            sessionStorage.setItem('hotDealMember', JSON.stringify(data.data));
-            hideModal(otpModal);
-            checkLoginStatus();
-        } else {
-            alert('Error: ' + data.message);
-        }
-    } catch (error) {
-        console.error('Error:', error);
-        alert('An error occurred. Please try again.');
-    }
-});
+//         const data = await response.json();
+//         if (data.status === 200) {
+//             sessionStorage.setItem('hotDealMember', JSON.stringify(data.data));
+//             hideModal(otpModal);
+//             checkLoginStatus();
+//         } else {
+//             alert('Error: ' + data.message);
+//         }
+//     } catch (error) {
+//         console.error('Error:', error);
+//         alert('An error occurred. Please try again.');
+//     }
+// });
 
 // Fetch and display units
 async function fetchUnits() {
@@ -195,12 +223,12 @@ async function fetchUnitDetails(unitId) {
 
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
-    checkLoginStatus();
-    if (unitsContainer) {
-        fetchUnits();
-    }
-    if (unitDetails) {
-        const unitId = window.location.pathname.split('/').pop();
-        fetchUnitDetails(unitId);
-    }
+    console.log('DOMContentLoaded');
+    animate('.unit-card',{
+        opacity: [0, 1],
+        translateY: { from: '40px'},
+        delay: stagger(160),
+        duration: 800,
+        easing: 'easeInOutSine',
+    });
 }); 

@@ -1,4 +1,15 @@
+@import "tailwindcss";
+@plugin "daisyui";
+
 /* Custom styles */
+:root {
+    --color-primary: #123F6D;
+}
+@theme {
+    --color-primary: #123F6D;
+    --color-custom-orange: #F1683B;
+}
+
 .swiper-button-next,
 .swiper-button-prev {
     color: white !important;
@@ -44,3 +55,15 @@
     transform: scale(0.95);
     transition: opacity 200ms, transform 200ms;
 } 
+
+html, body {
+    font-family: 'DBHeavent', sans-serif;
+}
+
+#units-container .unit-card {
+    transform: translateY(50px);
+}
+
+.card-benefits ul {
+   @apply list-disc list-inside;
+}

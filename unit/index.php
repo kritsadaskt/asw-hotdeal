@@ -4,19 +4,8 @@ if (empty($unitId)) {
     header('Location: /');
     exit;
 }
+include '../components/header.php';
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Unit Details - Hot Deal</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="assets/css/style.css">
-</head>
-<body class="bg-gray-100">
-    <?php include 'components/header.php'; ?>
-
     <div class="container mx-auto px-4 py-8">
         <div id="unit-details" class="bg-white rounded-lg shadow-lg p-6">
             <!-- Unit details will be loaded here -->
@@ -27,7 +16,5 @@ if (empty($unitId)) {
             </div>
         </div>
     </div>
-
-    <script src="assets/js/main.js"></script>
+    <?php include '../components/footer.php'; ?>
 </body>
-</html> 

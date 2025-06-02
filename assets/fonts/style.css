@@ -1,0 +1,40 @@
+@font-face {
+  font-family: 'DBHeavent';
+  src: url('/assets/fonts/db_heavent_li_v3.2.1.woff2') format('woff2'),
+        url('/assets/fonts/db_heavent_li_v3.2.1.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'DBHeavent';
+  src: url('/assets/fonts/db_heavent_v3.2.1.woff2') format('woff2'),
+        url('/assets/fonts/db_heavent_v3.2.1.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'DBHeavent';
+  src: url('/assets/fonts/db_heavent_med_v3.2.1.woff2') format('woff2'),
+        url('/assets/fonts/db_heavent_med_v3.2.1.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'DBHeavent';
+  src: url('/assets/fonts/db_heavent_bd_v3.2.1.woff2') format('woff2'),
+        url('/assets/fonts/db_heavent_bd_v3.2.1.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'DBHeavent';
+  src: url('/assets/fonts/db_heavent_blk_v3.2.1.woff2') format('woff2'),
+        url('/assets/fonts/db_heavent_blk_v3.2.1.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+}
+

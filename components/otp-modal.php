@@ -1,4 +1,4 @@
-<div id="otpModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+<div id="otpModal" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50">
     <div class="bg-white rounded-lg p-8 max-w-md w-full mx-4">
         <div class="flex justify-between items-center mb-6">
             <h3 class="text-2xl font-bold">Enter OTP</h3>
